@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers');
-            $table->decimal(19, 2);
+            $table->decimal('amount', 19, 2);
             $table->timestamp('created_at')->useCurrent();
         });
     }

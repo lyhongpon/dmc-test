@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name', 100);
             $table->string('phone', 16);
             $table->text('address')->nullable();
-            $table->unsignedSmallInteger('score')->nullable();
+            $table->unsignedSmallInteger('score')->default(0);
             $table->date('registered_date')->nullable();
             $table->timestamps();
         });
