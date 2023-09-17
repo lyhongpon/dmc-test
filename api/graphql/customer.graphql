@@ -1,0 +1,41 @@
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime
+    @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+type Customer {
+    id: ID!
+    name: String!
+    phone: String!
+    registered_date: Date
+    score: Int
+    address: String
+    created_at: DateTme
+    updated_at: DateTme
+}
+
+extend type Query {
+    customers_count: Int!
+        @count(model: "App\\Models\\Customer")
+        @guard(with: ["api"])
+    customers: [Customer!]!
+        @all(model: "App\\Models\\Customer")
+        @guard(with: ["api"])
+    customer(id: ID! @eq): Customer
+        @find(model: "App\\Models\\Customer")
+        @guard(with: ["api"])
+    customerSearch(search: String!): [Customer!]!
+        @field(resolver: "CustomerQuery@search")
+        @guard(with: ["api"])
+}
+
+extend type Mutation {
+    createCustomer(
+        name: String! @rules(apply: ["required", "min:4"])
+        phone: String! @rules(apply: ["required", "min:9"])
+        registered_date: Date @rules(apply: ["required", "date"])
+        address: String
+    ): Customer! @create
+}

@@ -1,0 +1,28 @@
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime
+    @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+type Purchase {
+    id: ID!
+    amount: Float!
+    created_at: DateTime
+    customer: Customer @belongsTo
+}
+
+extend type Query {
+    purchases_count: Int!
+        @count(model: "App\\Models\\Customer")
+        @guard(with: ["api"])
+    purchases: [Purchase!]!
+        @all(model: "App\\Models\\Purchase")
+        @guard(with: ["api"])
+}
+
+extend type Mutation {
+    createPurchase(
+        customer_id: Int! @rules(apply: ["required", "", "exists:customers,id"])
+        amount: Float! @rules(apply: ["required", "numeric", "min:0.01"])
+    ): Purchase!
+        @field(resolver: "PurchaseMutation@create")
+        @guard(with: ["api"])
+}

@@ -159,6 +159,7 @@ return [
         /*
          * Package Service Providers...
          */
+        \Nuwave\Lighthouse\Scout\ScoutServiceProvider::class,
 
         /*
          * Application Service Providers...

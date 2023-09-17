@@ -1,0 +1,3 @@
+#import auth.graphql
+#import customer.graphql
+#import purchase.graphql
