@@ -12,8 +12,8 @@ type Customer {
     registered_date: Date
     score: Int
     address: String
-    created_at: DateTme
-    updated_at: DateTme
+    created_at: DateTime
+    updated_at: DateTime
 }
 
 extend type Query {
@@ -21,7 +21,7 @@ extend type Query {
         @count(model: "App\\Models\\Customer")
         @guard(with: ["api"])
     customers: [Customer!]!
-        @all(model: "App\\Models\\Customer")
+        @paginate(model: "App\\Models\\Customer")
         @guard(with: ["api"])
     customer(id: ID! @eq): Customer
         @find(model: "App\\Models\\Customer")

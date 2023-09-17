@@ -24,6 +24,7 @@ import {
   cibCcApplePay,
   cibCcAmex,
   cilCart,
+  cilSearch,
 } from "@coreui/icons";
 import { cifUs, cifBr, cifIn, cifFr, cifEs, cifPl } from "@coreui/icons";
 import {
@@ -83,6 +84,7 @@ import {
 export const iconsSet = Object.assign(
   {},
   {
+    cilSearch,
     cilCart,
     cilArrowBottom,
     cilArrowRight,

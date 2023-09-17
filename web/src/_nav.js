@@ -13,8 +13,8 @@ export default [
   },
   {
     component: "CNavItem",
-    name: "Purchase",
-    to: "/purchases",
-    icon: "cil-cart",
+    name: "Lookup Customer",
+    to: "/lookup-customer",
+    icon: "cil-search",
   },
 ];

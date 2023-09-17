@@ -67,7 +67,7 @@ onDone((result) => {
       <div class="mb-3">
         <CFormInput
           v-model="name"
-          type="name"
+          type="text"
           id="name"
           placeholder="Name"
           aria-describedby="nameHelp"
@@ -107,7 +107,7 @@ onDone((result) => {
         </CCol>
       </CRow>
 
-      <CButton type="submit" color="dark" shape="btn-pill" class="w-100 mb-1">
+      <CButton type="submit" color="dark" class="w-100 mb-1">
         Create Account
       </CButton>
     </CForm>

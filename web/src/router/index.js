@@ -26,9 +26,9 @@ const routes = [
         },
       },
       {
-        path: "/purchases",
-        name: "Purchase",
-        component: () => import("@/views/Purchase.vue"),
+        path: "/lookup-customer",
+        name: "LookupCustomer",
+        component: () => import("@/views/LookupCustomer.vue"),
         meta: {
           middleware: [auth],
         },
