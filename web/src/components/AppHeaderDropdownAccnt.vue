@@ -9,20 +9,27 @@
       </CDropdownHeader>
       <CDropdownItem> <CIcon icon="cil-user" /> Profile </CDropdownItem>
       <CDropdownItem> <CIcon icon="cil-settings" /> Settings </CDropdownItem>
-      <CDropdownItem> <CIcon icon="cil-lock-locked" /> Logout </CDropdownItem>
+      <CDropdownItem @click="logout">
+        <CIcon icon="cil-lock-locked" /> Logout
+      </CDropdownItem>
     </CDropdownMenu>
   </CDropdown>
 </template>
 
-<script>
+<script setup>
 import avatar from "@/assets/images/avatars/8.jpg";
-export default {
-  name: "AppHeaderDropdownAccnt",
-  setup() {
-    return {
-      avatar: avatar,
-      itemsCount: 42,
-    };
-  },
-};
+import { apolloClient, onLogout } from "@/plugins/apollo-client.js";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "@/store/auth";
+
+const authStore = useAuthStore();
+const router = useRouter();
+
+function logout() {
+  authStore.loggedIn = false;
+  authStore.user = null;
+  onLogout(apolloClient);
+
+  router.push({ name: "Login" });
+}
 </script>
