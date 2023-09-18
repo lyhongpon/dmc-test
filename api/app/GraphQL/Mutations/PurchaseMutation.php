@@ -9,8 +9,14 @@ class PurchaseMutation
     public function create($root, array $args)
     {
         return DB::transaction(function () use ($root, $args) {
+            // create new purchase
             $purchase = \App\Models\Purchase::create($args);
-            $purchase->customer()->increment('score');
+
+            // update user score
+            $purchase->load('customer');
+            $customer = $purchase->customer;
+            $totalAmount = $customer->purchases()->sum('amount') + $args['amount'];
+            $customer->update(['score' => intval($totalAmount / 10)]);
 
             return $purchase;
         });
