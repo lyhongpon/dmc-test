@@ -11,7 +11,7 @@ type Purchase {
 
 extend type Query {
     purchases_count: Int!
-        @count(model: "App\\Models\\Customer")
+        @count(model: "App\\Models\\Purchase")
         @guard(with: ["api"])
     purchases: [Purchase!]!
         @all(model: "App\\Models\\Purchase")
