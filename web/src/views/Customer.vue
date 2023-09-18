@@ -22,7 +22,7 @@ const newCustomerInput = ref({
 });
 
 // todo: implement Pagination component
-const { result } = useQuery(gql`
+const { result, refetch } = useQuery(gql`
   query {
     customers(first: 200, page: 1) {
       data {
@@ -70,7 +70,20 @@ const {
   }
 `);
 
-onCreatedCustomer(() => closeCreateCustomerModal());
+onCreatedCustomer((res) => {
+  // append added customer to the list
+  if (res.data.createCustomer) {
+    result.value = {
+      ...result.value,
+      customers: {
+        ...result.value.customer,
+        data: [...result.value.customers.data, res.data.createCustomer],
+      },
+    };
+  }
+
+  closeCreateCustomerModal();
+});
 
 function closeCreateCustomerModal() {
   createCustomerModal.value = false;
@@ -89,6 +102,9 @@ function closeCreateCustomerModal() {
           @click="createCustomerModal = true"
         >
           New
+        </CButton>
+        <CButton color="secondary" size="sm" class="m-2" @click="refetch()">
+          Refresh
         </CButton>
       </CCardHeader>
       <CCardBody>
